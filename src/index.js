@@ -1,15 +1,17 @@
 const {MongoClient, ObjectId} = require('mongodb');
 const express = require('express');
+const morgan = require('morgan');
+require('dotenv').config();
 
-const conectionURI = "mongodb://localhost:27017/";
-const databaseName = "task-manager";
-
+const conectionURI = process.env.DB_HOST;
+const databaseName = "student-manager-app";
 const app = express();
-const PORT = 3030;
+const PORT = process.env.PORT;
 
 app.use(express.json())
+app.use(morgan('dev'))
 
-app.get("api/students", async (req,res) => {
+app.get("/students", async (req,res) => {
   const client = new MongoClient(conectionURI)
 
   try {
@@ -20,14 +22,14 @@ app.get("api/students", async (req,res) => {
 
   } catch (error) {
     console.log(error)
-    res.status(404)
+    res.status(500).send({msg:"Oops Something happens!"})
 
   } finally {
     await client.close()
   }
 })
 
-app.get("api/users/:id", async(req,res) => {
+app.get("/students/:id", async(req,res) => {
   const id = req.params.id;
   let student = {}
   const client = new MongoClient(conectionURI)
@@ -35,18 +37,54 @@ app.get("api/users/:id", async(req,res) => {
   try {
     await client.connect()
     const db = client.db(databaseName);
-    student = await db.collection('users').findOne({_id: new ObjectId(id)});
+    student = await db.collection('students').findOne({_id: new ObjectId(id)});
     res.status(200).send(student);
 
   } catch (error) {
     console.log(error)
-    res.status(404)
+    res.status(404).send({msg:"Not found"})
+  } finally {
+    await client.close()
+  }
+})
 
+app.delete("/students/:id", async(req,res) => {
+  const id = req.params.id;
+  let students = []
+  const client = new MongoClient(conectionURI)
+
+  try {
+    await client.connect()
+    const db = client.db(databaseName);
+    await db.collection('students').deleteOne({_id: new ObjectId(id)});
+    students = await db.collection('students').find().toArray()
+    res.status(200).send(students);
+
+  } catch (error) {
+    console.log(error)
+    res.status(404).send({msg:"Not found"})
+  } finally {
+    await client.close()
+  }
+})
+
+app.post("/students", async (req,res) => {
+  const student = req.body
+  const client = new MongoClient(conectionURI)
+
+  try {
+    await client.connect()
+    const db = client.db(databaseName)
+    await db.collection('students').insertOne(student)
+    res.status(200).send(student)
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({msg:"Something happens!"})
   } finally {
     await client.close()
   }
 })
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Server running on port: ${PORT}`)
 })
