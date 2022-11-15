@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const conectionURI = "mongodb://localhost:27017/" || process.env.DB_HOST;
+const conectionURI = process.env.DB_HOST;
 const databaseName = "student-manager-app";
 const app = express();
 const PORT = process.env.PORT;
