@@ -1,6 +1,7 @@
 const {MongoClient, ObjectId} = require('mongodb');
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 require('dotenv').config();
 
 const conectionURI = process.env.DB_HOST;
@@ -10,6 +11,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(cors())
 
 app.get("/estudiantes", async (req,res) => {
   const client = new MongoClient(conectionURI)
