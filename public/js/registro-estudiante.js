@@ -71,9 +71,11 @@ class Estudiante {
   }
 }
 
-const agregarEstudiante = (Listado = [], nuevoEstudiante = {}) => {
-  // Listado.push(nuevoEstudiante);
-  fetch('https://students-manager-app-production.up.railway.app/estudiantes',{
+const agregarEstudiante = (nuevoEstudiante = {}) => {
+  const URI = "http://localhost:3030/estudiantes"
+  // const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
+
+  fetch(URI,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -82,7 +84,8 @@ const agregarEstudiante = (Listado = [], nuevoEstudiante = {}) => {
   })
   .then(res => res.json())
   .then(data => console.log(data))
-  // console.log(Listado);
+  .catch(err => console.log(err))
+
 };
 
 Formulario.addEventListener('submit', (e) => {
@@ -115,9 +118,9 @@ Formulario.addEventListener('submit', (e) => {
     apellido.value,
     curso.value,
     matricula.value,
-    nota.value
+    Number(nota.value)
   );
 
-  agregarEstudiante(listadoEstudiantes, nuevoEstudiante);
+  agregarEstudiante(nuevoEstudiante);
   Formulario.reset();
 });

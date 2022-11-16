@@ -1,0 +1,43 @@
+        <!-- Table -->
+        <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
+            <header class="px-5 py-4 border-b border-gray-100">
+                <h2 class="font-semibold text-gray-800">Estudiantes Matriculados</h2>
+            </header>
+            <div class="p-3">
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full">
+                        <thead class="text-xs font-semibold uppercase text-gray-400 bg-slate-50">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Nombre</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Curso</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Matricula</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-center">Nota</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-center">Acciones</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100" id="results">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 hidden" id="deleteModal">
+            <div class="bg-white px-16 py-14 rounded-md text-center">
+                <h1 class="text-xl mb-4 font-bold text-slate-500">Esta seguro que desea eliminar este estudiante?</h1>
+                <p class="font-semibold text-center my-5">El estudiante <span id="nombreEstudianteEliminar">Fulanowski Perez</span> será eliminado. Esta accion no se puede deshacer.</p>
+                <button class="bg-red-500 px-4 py-2 rounded-md text-md text-white">Mejor no.</button>
+                <button class="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">Llévatelo!</button>
+            </div>
+        </div>
+        <script src="/js/listado-estudiantes.js"></script>

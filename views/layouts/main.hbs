@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="shadow bg-white">
+      <div class="h-16 mx-auto px-5 flex items-center justify-between">
+          <a class="text-2xl hover:text-slate-500 transition-colors cursor-pointer" href="/">Student Manager App</a>
+          <ul class="flex items-center gap-5">
+            <li><a class="hover:text-slate-500 transition-colors" href="/">Dashboard</a></li>
+            <li><a class="hover:text-slate-500 transition-colors" href="/registro-estudiante">Registro</a></li>
+            <li><a class="hover:text-slate-500 transition-colors" href="/listado-estudiantes">Listado</a></li>
+          </ul>
+      </div>
+    </div>
+    <div class="flex justify-center items-center h-screen bg-slate-500">
+    {{{body}}}
+    </div>
+  </body>
+</html>
