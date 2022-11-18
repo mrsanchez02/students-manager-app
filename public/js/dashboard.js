@@ -1,8 +1,8 @@
 const totalEstudiantes = document.querySelector('#totalEstudiantes');
 const totalSobresalientes = document.querySelector('#totalSobresalientes');
 
-const URI = "http://localhost:3030/estudiantes"
-// const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
+// const URI = "http://localhost:3030/estudiantes"
+const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
 
 fetch(URI)
 .then(res => res.json())
