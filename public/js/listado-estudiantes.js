@@ -1,10 +1,11 @@
 const results = document.querySelector('#results');
-const deleteModal = document.querySelector('#deleteModal');
+const btnNo =  document.querySelector('#btnNo')
+const btnYes =  document.querySelector('#btnYes')
 
-const FetchData = () => {
-  // const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
-  const URI = "http://localhost:3030/estudiantes"
-  
+const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
+// const URI = "http://localhost:3030/estudiantes"
+
+const FetchData = () => {  
   fetch(URI)
   .then(res => res.json())
   .then(data => DisplayStudentList(data))
@@ -40,26 +41,18 @@ const DisplayStudentList = (studentList = [] ) =>{
     `
     let btnEliminar = document.querySelectorAll('button');
     btnEliminar.forEach(el=>{
-      el.addEventListener('click',()=> deleteStudent(el.dataset.matricula))
+      el.addEventListener('click',()=> onDelete(el.dataset.matricula))
     })
   });
 }
 
-const deleteStudent = (id) => {
-  // const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
-  const URI = "http://localhost:3030/estudiantes"
-  confirmAction();
-  // fetch(`${URI}/${id}`,{
-  //   method: 'DELETE',
-  // })
-  // .then(res => res.json())
-  // .catch(err => console.log(err))
-  // .finally(()=> FetchData())
+const onDelete = (id) => {
+  fetch(`${URI}/${id}`,{
+    method: 'DELETE',
+  })
+  .then(res => res.json())
+  .catch(err => console.log(err))
+  .finally(()=> FetchData())
 }
 
 FetchData()
-
-const confirmAction = () => {
-  deleteModal.classList.remove('hidden')
-  // deleteModal.classList.remove('hidden')
-}

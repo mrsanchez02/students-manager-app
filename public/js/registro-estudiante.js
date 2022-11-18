@@ -7,6 +7,7 @@ const nota = document.querySelector('#nota');
 const errorNombre = document.querySelector('#errorNombre');
 const errorMatricula = document.querySelector('#errorMatricula');
 const btnSubmit = document.querySelector('#btnSubmit');
+const dismissBtn = document.querySelector('#dismissBtn');
 
 // Expresiones Regulares
 const NombreExp = /^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$/;
@@ -72,8 +73,8 @@ class Estudiante {
 }
 
 const agregarEstudiante = (nuevoEstudiante = {}) => {
-  const URI = "http://localhost:3030/estudiantes"
-  // const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
+  // const URI = "http://localhost:3030/estudiantes"
+  const URI = 'https://students-manager-app-production.up.railway.app/estudiantes'
 
   fetch(URI,{
     method: 'POST',
@@ -83,7 +84,6 @@ const agregarEstudiante = (nuevoEstudiante = {}) => {
     body:JSON.stringify(nuevoEstudiante)
   })
   .then(res => res.json())
-  .then(data => console.log(data))
   .catch(err => console.log(err))
 
 };
@@ -123,4 +123,30 @@ Formulario.addEventListener('submit', (e) => {
 
   agregarEstudiante(nuevoEstudiante);
   Formulario.reset();
+  onSucess()
 });
+
+function onSucess() {
+  let success = document.getElementById('successModal')
+  if(success.classList.contains('hidden')) {
+    success.classList.remove('hidden')
+  }
+}
+
+function onDismiss() {
+  let success = document.getElementById('successModal')
+  success.classList.add('hidden')
+}
+
+document.addEventListener("DOMContentLoaded", ()=> {
+  
+  document
+    .getElementById("successModal")
+    .addEventListener('click', onDismiss)
+  document
+    .getElementById('bodyModal')
+    .addEventListener('click', (e)=> e.stopPropagation());
+
+  let dismissBtn = document.querySelector('#dismissBtn');
+  dismissBtn.addEventListener('click', ()=> onDismiss());
+})
